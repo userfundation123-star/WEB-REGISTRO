@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Veículos</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eef2f7;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; color: #1e3a8a; }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    label { font-size: 14px; font-weight: bold; display: block; margin-bottom: 4px; }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    .botoes { grid-column: 1 / -1; display: flex; gap: 10px; }
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .btn-salvar { background: #1e3a8a; color: #fff; }
+    .btn-cancelar { background: #9ca3af; color: #fff; display: none; }
+    .btn-editar { background: #f59e0b; color: #fff; padding: 6px 10px; }
+    .btn-excluir { background: #dc2626; color: #fff; padding: 6px 10px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    th { background: #1e3a8a; color: #fff; }
+    .busca { margin-bottom: 12px; }
+    #mensagem { text-align: center; font-weight: bold; min-height: 20px; }
+    .tabela-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚗 Cadastro de Veículos</h1>
+
+    <div class="card">
+      <h2 id="tituloForm">Novo Veículo</h2>
+      <form id="formVeiculo">
+        <input type="hidden" id="id">
+        <div>
+          <label for="placa">Placa</label>
+          <input type="text" id="placa" maxlength="8" placeholder="ABC1D23" required>
+        </div>
+        <div>
+          <label for="marca">Marca</label>
+          <input type="text" id="marca" placeholder="Ex: Fiat" required>
+        </div>
+        <div>
+          <label for="modelo">Modelo</label>
+          <input type="text" id="modelo" placeholder="Ex: Uno" required>
+        </div>
+        <div>
+          <label for="ano">Ano</label>
+          <input type="number" id="ano" min="1900" max="2100" required>
+        </div>
+        <div>
+          <label for="cor">Cor</label>
+          <input type="text" id="cor" placeholder="Ex: Prata">
+        </div>
+        <div>
+          <label for="tipo">Tipo</label>
+          <select id="tipo" required>
+            <option value="Carro">Carro</option>
+            <option value="Moto">Moto</option>
+            <option value="Caminhão">Caminhão</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+        <div class="botoes">
+          <button type="submit" class="btn-salvar" id="btnSalvar">Salvar</button>
+          <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar</button>
+        </div>
+      </form>
+      <p id="mensagem"></p>
+    </div>
+
+    <div class="card">
+      <h2>Veículos Cadastrados</h2>
+      <input type="text" id="busca" class="busca" placeholder="Buscar por placa, marca ou modelo...">
+      <div class="tabela-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Ano</th>
+              <th>Cor</th>
+              <th>Tipo</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="listaVeiculos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biblioteca do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
